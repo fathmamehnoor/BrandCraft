@@ -12,10 +12,11 @@ BrandCraft leverages state-of-the-art machine learning models to generate creati
 
 To get started with BrandCraft:
 
-1. Clone the repository from GitHub:
+1. Clone the repository from GitHub and install dependencies:
     ```bash
     git clone https://github.com/your-repo/brandcraft.git
     cd brandcraft
+    pip install -r requirements.txt
     ```
 2. Run the `app.py` file  to launch the Gradio interface for the branding tool:
     ```bash

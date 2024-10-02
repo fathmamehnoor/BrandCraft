@@ -17,13 +17,8 @@ To get started with BrandCraft:
     git clone https://github.com/your-repo/brandcraft.git
     cd brandcraft
     ```
-   
-2. Ensure that you have access to **NVIDIA AI Workbench**.
-
-3. Run the `app.py` file using **NVIDIA AI Workbench** to launch the Gradio interface for the branding tool:
+2. Run the `app.py` file  to launch the Gradio interface for the branding tool:
     ```bash
-    nvwb activate local
-    nvwb open BrandCraft
     cd code
     python app.py
     ```

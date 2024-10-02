@@ -1,1 +1,12 @@
 jupyterlab>3.0
+numpy
+torch
+torchvision
+matplotlib
+pillow
+transformers
+tqdm
+accelerate
+huggingface_hub
+diffusers
+gradio

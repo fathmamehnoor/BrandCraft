@@ -1,4 +1,4 @@
-# Project Name: BrandCraft
+# BrandCraft
 
 ## Project Overview
 

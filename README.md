@@ -18,7 +18,10 @@ To get started with BrandCraft:
     cd brandcraft
     pip install -r requirements.txt
     ```
-2. Run the `app.py` file  to launch the Gradio interface for the branding tool:
+2. Install the model files and tokenizer configuration for loading the pre-trained model into models/
+   [link text](https://drive.google.com/drive/folders/1aFP4VzJ0qT8Lkbvfh9rdotDU_rcuADjD?dmr=1&ec=wgc-drive-globalnav-goto)
+   
+3. Run the `app.py` file  to launch the Gradio interface for the branding tool:
     ```bash
     cd code
     python app.py

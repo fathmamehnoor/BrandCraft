@@ -19,17 +19,17 @@ BrandCraft leverages state-of-the-art machine learning models to generate creati
 3. If this is your first project, click the green **Clone Existing Project** button.  
    - Otherwise, click **Clone Project** in the top-right corner.
 4. Paste in the repository URL, leave the default path, and click **Clone**.
-![Clone Repo](/data/image4.png)
+![Clone Repo](/assets/image4.png)
 
 ### After cloning the project:
  
- - The container may take a few minutes to build; check the **Build Status** widget at the bottom of the AI Workbench window, expand it to view the output, and once it shows **Build Ready**, you’re good to proceed.
+1. The container may take a few minutes to build; check the **Build Status** widget at the bottom of the AI Workbench window, expand it to view the output, and once it shows **Build Ready**, you’re good to proceed.
 
-### Install the model files and tokenizer configuration for loading the pre-trained model and load into models/ [Download](https://drive.google.com/drive/folders/1aFP4VzJ0qT8Lkbvfh9rdotDU_rcuADjD?dmr=1&ec=wgc-drive-globalnav-goto)
-![Models Folder](/data/image3.png)
+2. Install the model files and tokenizer configuration for loading the pre-trained model and load into models/ [Download](https://drive.google.com/drive/folders/1aFP4VzJ0qT8Lkbvfh9rdotDU_rcuADjD?dmr=1&ec=wgc-drive-globalnav-goto)
+![Models Folder](/assets/image3.png)
 
 ### Start the BrandCraft application
 
 1. Ensure that the container has finished building.
 2. When it’s ready, click the green **Open Application** button in the top-right to start the Gradio-based BrandCraft interface.
-![Opening Gradio App](/data/image2.png)
+![Opening Gradio App](/assets/image2.png)

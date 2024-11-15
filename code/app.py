@@ -77,6 +77,7 @@ def generate_logo(company_name, description):
 # Create Gradio interface
 with gr.Blocks() as iface:
     gr.Markdown("# BrandCraft")
+
     
     with gr.Row():
         with gr.Column():
@@ -91,5 +92,6 @@ with gr.Blocks() as iface:
 
     generate_slogan_btn.click(generate_slogans, inputs=[company_name_input, description_input], outputs=slogan_output)
     generate_logo_btn.click(generate_logo, inputs=[company_name_input, description_input], outputs=logo_output)
+
 proxy_prefix = os.environ.get("PROXY_PREFIX","/")
-iface.launch(server_name="0.0.0.0", server_port=8080,root_path=proxy_prefix, share=True )
+iface.launch(server_name="0.0.0.0", server_port=8080,root_path=proxy_prefix, share=True)

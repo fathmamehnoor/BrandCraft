@@ -10,3 +10,4 @@ accelerate
 huggingface_hub
 diffusers
 gradio
+fastapi==0.112.2

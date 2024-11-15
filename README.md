@@ -25,7 +25,7 @@ BrandCraft leverages state-of-the-art machine learning models to generate creati
  
 1. The container may take a few minutes to build; check the **Build Status** widget at the bottom of the AI Workbench window, expand it to view the output, and once it shows **Build Ready**, you’re good to proceed.
 
-2. Install the model files and tokenizer configuration for loading the pre-trained model and load into models/ [Download](https://drive.google.com/drive/folders/1aFP4VzJ0qT8Lkbvfh9rdotDU_rcuADjD?dmr=1&ec=wgc-drive-globalnav-goto)
+2. Install the model files and tokenizer configuration for loading the pre-trained model and upload into models/ [Download](https://drive.google.com/drive/folders/1aFP4VzJ0qT8Lkbvfh9rdotDU_rcuADjD?dmr=1&ec=wgc-drive-globalnav-goto)
 ![Models Folder](/assets/image3.png)
 
 ### Start the BrandCraft application

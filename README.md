@@ -33,3 +33,6 @@ BrandCraft leverages state-of-the-art machine learning models to generate creati
 1. Ensure that the container has finished building.
 2. When it’s ready, click the green **Open Application** button in the top-right to start the Gradio-based BrandCraft interface.
 ![Opening Gradio App](/assets/image2.png)
+
+
+

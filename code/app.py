@@ -7,20 +7,38 @@ from transformers.utils import move_cache
 from diffusers import AutoPipelineForText2Image
 import os
 
-# Load the saved model and tokenizer
+# Define lazy loading functions
+def load_tokenizer():
+    if not hasattr(load_tokenizer, "tokenizer"):
+        load_tokenizer.tokenizer = GPT2Tokenizer.from_pretrained(MODEL_PATH)
+    return load_tokenizer.tokenizer
+
+def load_model():
+    if not hasattr(load_model, "model"):
+        load_model.model = GPT2LMHeadModel.from_pretrained(MODEL_PATH)
+    return load_model.model
+
+def load_pipeline():
+    if not hasattr(load_pipeline, "pipeline"):
+        load_pipeline.pipeline = AutoPipelineForText2Image.from_pretrained(
+            "runwayml/stable-diffusion-v1-5", torch_dtype=torch.float16, variant="fp16"
+        ).to("cuda")
+    return load_pipeline.pipeline
+
+# Global variables for model path and special tokens
 MODEL_PATH = '../models'
-tokenizer = GPT2Tokenizer.from_pretrained(MODEL_PATH)
-model = GPT2LMHeadModel.from_pretrained(MODEL_PATH)
+context_tkn = None
+slogan_tkn = None
 
-# Declare special tokens for padding and separating the context from the slogan:
-context_tkn = tokenizer.additional_special_tokens_ids[0]
-slogan_tkn = tokenizer.additional_special_tokens_ids[1]
+# Lazy initialization for special tokens
+def initialize_special_tokens():
+    global context_tkn, slogan_tkn
+    if context_tkn is None or slogan_tkn is None:
+        tokenizer = load_tokenizer()
+        context_tkn = tokenizer.additional_special_tokens_ids[0]
+        slogan_tkn = tokenizer.additional_special_tokens_ids[1]
 
-move_cache()
-pipeline = AutoPipelineForText2Image.from_pretrained(
-    "runwayml/stable-diffusion-v1-5", torch_dtype=torch.float16, variant="fp16"
-).to("cuda")
-
+# Utility function for top-k and top-p filtering
 def top_k_top_p_filtering(logits, top_k=0, top_p=0.0, filter_value=-float('Inf')):
     top_k = min(top_k, logits.size(-1))  # Safety check
     if top_k > 0:
@@ -37,7 +55,12 @@ def top_k_top_p_filtering(logits, top_k=0, top_p=0.0, filter_value=-float('Inf')
         logits[indices_to_remove] = filter_value
     return logits
 
+# Sequence sampling function
 def sample_sequence(context, length=20, num_samples=1, temperature=1, top_k=0, top_p=0.0):
+    initialize_special_tokens()
+    tokenizer = load_tokenizer()
+    model = load_model()
+
     input_ids = [context_tkn] + tokenizer.encode(context)
     input_ids += [slogan_tkn]  # Add the slogan token
 
@@ -60,24 +83,23 @@ def sample_sequence(context, length=20, num_samples=1, temperature=1, top_k=0, t
         slogans.append(slogan.strip())
     return slogans
 
+# Functions for generating slogans and logos
 def generate_slogans(company_name, description):
     context = f"{company_name}, {description}"  # Combine company name and description to form context
     return sample_sequence(context, num_samples=5)  # Change num_samples as needed
 
 def generate_logo_description(company_name, description):
-    # Create a logo description based on the company name and description
     return f"A logo for {company_name}, a company that {description.lower()}."
 
 def generate_logo(company_name, description):
     logo_description = generate_logo_description(company_name, description)
-    # Generate a logo image based on the provided description
+    pipeline = load_pipeline()
     image = pipeline(logo_description).images[0]
     return image
 
 # Create Gradio interface
 with gr.Blocks() as iface:
     gr.Markdown("# BrandCraft")
-
     
     with gr.Row():
         with gr.Column():
@@ -93,5 +115,5 @@ with gr.Blocks() as iface:
     generate_slogan_btn.click(generate_slogans, inputs=[company_name_input, description_input], outputs=slogan_output)
     generate_logo_btn.click(generate_logo, inputs=[company_name_input, description_input], outputs=logo_output)
 
-proxy_prefix = os.environ.get("PROXY_PREFIX","/")
-iface.launch(server_name="0.0.0.0", server_port=8080,root_path=proxy_prefix, share=True)
+proxy_prefix = os.environ.get("PROXY_PREFIX", "/")
+iface.launch(server_name="0.0.0.0", server_port=8080, root_path=proxy_prefix, share=True)

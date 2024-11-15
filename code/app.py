@@ -91,5 +91,5 @@ with gr.Blocks() as iface:
 
     generate_slogan_btn.click(generate_slogans, inputs=[company_name_input, description_input], outputs=slogan_output)
     generate_logo_btn.click(generate_logo, inputs=[company_name_input, description_input], outputs=logo_output)
-proxy_prefix = os.environ.get("PROXY_PREFIX")
-iface.launch(server_name="0.0.0.0", server_port=8080,root_path=proxy_prefix )
+proxy_prefix = os.environ.get("PROXY_PREFIX","/")
+iface.launch(server_name="0.0.0.0", server_port=8080,root_path=proxy_prefix, share=True )

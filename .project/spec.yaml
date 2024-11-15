@@ -101,7 +101,7 @@ execution:
   - name: gradio
     type: custom
     class: webapp
-    start_command: cd /project/code && python3 app.py
+    start_command: cd /project/code && PROXY_PREFIX=$PROXY_PREFIX python3 app.py
     health_check_command: curl -f "http://localhost:8080/"
     stop_command: pkill -f '^python3 app.py'
     user_msg: ""
@@ -112,7 +112,7 @@ execution:
       autolaunch: true
       port: "8080"
       proxy:
-        trim_prefix: false
+        trim_prefix: true
       url: http://localhost:8080/
   resources:
     gpu:

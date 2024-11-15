@@ -85,7 +85,35 @@ environment:
       name: ""
       target: ""
 execution:
-  apps: []
+  apps:
+  - name: Visual Studio Code
+    type: vs-code
+    class: native
+    start_command: ""
+    health_check_command: '[ \$(ps aux | grep ".vscode-server" | grep -v grep | wc
+      -l ) -gt 4 ] && [ \$(ps aux | grep "/.vscode-server/bin/.*/node .* net.createConnection"
+      | grep -v grep | wc -l) -gt 0 ]'
+    stop_command: ""
+    user_msg: ""
+    logfile_path: ""
+    timeout_seconds: 120
+    icon_url: ""
+  - name: gradio
+    type: custom
+    class: webapp
+    start_command: cd /project/code && python3 app.py
+    health_check_command: curl -f "http://localhost:8080/"
+    stop_command: pkill -f '^python3 app.py'
+    user_msg: ""
+    logfile_path: ""
+    timeout_seconds: 60
+    icon_url: ""
+    webapp_options:
+      autolaunch: true
+      port: "8080"
+      proxy:
+        trim_prefix: false
+      url: http://localhost:8080/
   resources:
     gpu:
       requested: 1
